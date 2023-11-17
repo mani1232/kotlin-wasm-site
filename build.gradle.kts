@@ -105,11 +105,12 @@ kotlin {
                 implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
                 implementation("io.ktor:ktor-network-tls-certificates:$ktorVersion")
                 implementation("io.ktor:ktor-server-websockets-jvm:$ktorVersion")
-                if (tcnative_classifier != null) {
-                    implementation("io.netty:netty-tcnative-boringssl-static:$tcnativeVersion:$tcnative_classifier")
-                } else {
-                    implementation("io.netty:netty-tcnative-boringssl-static:$tcnativeVersion")
-                }
+                implementation("io.netty:netty-tcnative-boringssl-static:$tcnativeVersion:linux-x86_64")
+                //if (tcnative_classifier != null) {
+                //    implementation("io.netty:netty-tcnative-boringssl-static:$tcnativeVersion:$tcnative_classifier")
+                //} else {
+                //    implementation("io.netty:netty-tcnative-boringssl-static:$tcnativeVersion")
+                //}
             }
         }
         val jvmTest by getting {
