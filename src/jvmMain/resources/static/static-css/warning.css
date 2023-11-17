@@ -1,0 +1,25 @@
+#warning {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    max-width: 830px;
+    z-index: 100;
+    background-color: white;
+    font-size: initial;
+    display: none;
+}
+
+#warning li {
+    padding-bottom: 15px;
+}
+
+#warning span.code {
+    font-family: monospace;
+}
+
+#close {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    cursor: pointer;
+}

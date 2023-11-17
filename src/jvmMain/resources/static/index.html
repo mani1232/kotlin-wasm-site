@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main page</title>
+    <link href="/static-css/warning.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container text-center">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-auto">
+            <div class="input-group">
+                <span class="input-group-text">Timezone</span>
+                <input id="time-input" type="text" class="form-control" placeholder="Enter zone" value="Europe/Amsterdam" aria-label="Timezone">
+                <button id="time-button" class="btn btn-success" type="button">Update</button>
+                <span id="time-output" class="input-group-text" >🤷</span>
+            </div>
+        </div>
+        <div class="col col-md-auto">
+            <button id="theme-button" class="btn btn-success" type="button">Change theme</button>
+        </div>
+        <div class="col col-md-auto">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="">Login</button>
+
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="loginModalLabel">Sign-up</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/login" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="login-text" class="col-form-label">Login:</label>
+                                    <input type="text" name="username" class="form-control" id="login-text">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password-text" class="col-form-label">Password:</label>
+                                    <input type="text" name="password" class="form-control" id="password-text">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button id="login-btn" type="submit" class="btn btn-primary">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static-js/kotlin-wasm-site.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+<div id="warning"> <!-- If all works fine, it has hidden -->
+    ⚠️ Please make sure that your runtime environment supports the latest version of Wasm GC and Exception-Handling
+    proposals.
+    For more information, see <a href="https://kotl.in/wasm-help">https://kotl.in/wasm-help</a>.
+    <br/>
+    <br/>
+    <ul>
+        <li>For <b>Chrome</b> and <b>Chromium-based</b> browsers (Edge, Brave etc.), it <b>should just work</b> since
+            version 119.
+        </li>
+        <li>For <b>Firefox</b> 120 it <b>should just work</b>.</li>
+        <li>For <b>Firefox</b> 119:
+            <ol>
+                <li>Open <span class="code">about:config</span> in the browser.</li>
+                <li>Enable <strong>javascript.options.wasm_gc</strong>.</li>
+                <li>Refresh this page.</li>
+            </ol>
+        </li>
+    </ul>
+</div>
+
+
+</body>
+<script type="application/javascript">
+    const unhandledError = (event, error) => {
+        if (error instanceof WebAssembly.CompileError) {
+            document.getElementById("warning").style.display = "initial";
+
+            // Hide a Scary Webpack Overlay which is less informative in this case.
+            const webpackOverlay = document.getElementById("webpack-dev-server-client-overlay");
+            if (webpackOverlay != null) webpackOverlay.style.display = "none";
+        }
+    }
+    addEventListener("error", (event) => unhandledError(event, event.error));
+    addEventListener("unhandledrejection", (event) => unhandledError(event, event.reason));
+</script>
+</html>
