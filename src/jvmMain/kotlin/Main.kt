@@ -144,6 +144,9 @@ fun Application.webSockets() {
                     null
                 }
             }
+            challenge {
+                call.respondRedirect("/")
+            }
         }
         session<UserSession>("auth-session") {
             validate { session ->
@@ -155,7 +158,7 @@ fun Application.webSockets() {
                 }
             }
             challenge {
-                call.respondRedirect("/login")
+                call.respondRedirect("/")
             }
         }
     }
